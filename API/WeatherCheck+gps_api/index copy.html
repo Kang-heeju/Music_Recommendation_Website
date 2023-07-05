@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title> GPS to WeatherCondition </title>
+        <script src="http://code.jquery.com/jquery-1.11.0.js"></script>
+        <script>
+            // 콜백 함수를 이용할 시 반드시 이 스크립트가 밑의 스크립트보다 먼저 실행돼야 함
+            function useGps() {
+                var userLat = document.getElementById('latitude').innerText.trim(); // trim으로 공백을 제거하고 실제 값만 불러오기
+                console.log(userLat);
+                var userLng = document.getElementById('longitude').innerText.trim(); // trim으로 공백을 제거하고 실제 값만 불러오기
+                console.log(userLng);
+
+                const APIKEY = "ea903679a6e5a44da75a971c0231f4f4"; 
+                fetch("https://api.openweathermap.org/data/2.5/weather?lat=" + userLat + "&lon=" + userLng + "&appid=" + APIKEY + "&units=metric")
+                .then(res => res.json())
+                .then(function(jsonObject) {
+                    //if(!error&&response.statusCode==200)
+                    //request는 string으로 받아오기 때문에 JSON형태로 바꿔준다.
+                    //var jsonObject = JSON.parse();
+                    var LocationName = jsonObject.name; //지역 이름
+                    var WeatherCondition = jsonObject.weather[0].main; //현재 날씨 
+                    var Temp = jsonObject.main.temp; //현재 기온
+                    //console.log(body);
+                    console.log(LocationName);
+                    console.log(WeatherCondition);
+                    console.log(Temp);
+            })
+        } </script>
+        <script>
+            $(function() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(pos) {
+                        $('#latitude').html(pos.coords.latitude);
+                        $('#longitude').html(pos.coords.longitude);
+                       // useGps(); // GPS 정보를 모두받아온 뒤에 코드를 실행함
+                        useGps();
+                     });
+                }
+                else {
+                    alert('이 브라우저에서는 안됩니다');
+                }
+            });
+        </script>
+
+
+    </head>
+    <body>
+        <ul>
+            <li>위도:<span id="latitude"></span></li>
+            <li>경도:<span id="longitude"></span></li>
+        </ul>
+    </body>
+</html>
