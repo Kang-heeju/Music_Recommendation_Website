@@ -76,5 +76,4 @@
 - 강희주 : hjkang0107@khu.ac.kr
 - 김재욱 : jaewook2400@khu.ac.kr
 - 진재영 : jinjy1104@khu.ac.kr
-- Project Link: http://khuhub.khu.ac.kr/2021105563/Music_Recommendation_Website.git
 <p align="right">(<a href="#top">back to top</a>)</p>
